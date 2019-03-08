@@ -14,17 +14,20 @@ import java.net.URI;
 @RestController
 public class GatewayController {
 
+  public static final String SECURED = "/secured";
+  public static final String UNSECURED = "/unsecured";
+
   @Value("${remote.home}")
   private URI home;
 
-  @GetMapping("/secured")
+  @GetMapping(SECURED)
   public Mono<ResponseEntity<byte[]>> secured(
     @AuthenticationPrincipal Jwt jwt,
     ProxyExchange<byte[]> proxy) {
     return proxy.uri(home.toString() + "/auth/realms/master").get();
   }
 
-  @GetMapping("/unsecured")
+  @GetMapping(UNSECURED)
   public Mono<ResponseEntity<byte[]>> unsecured(ProxyExchange<byte[]> proxy) {
     return proxy.uri(home.toString() + "/auth/realms/master").get();
   }

@@ -5,6 +5,9 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
+import static sk.bsmk.GatewayController.SECURED;
+import static sk.bsmk.GatewayController.UNSECURED;
+
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
@@ -12,8 +15,8 @@ public class SecurityConfig {
   SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) throws Exception {
     http
       .authorizeExchange()
-      .pathMatchers("/message/**").hasAuthority("SCOPE_message:read")
-      .anyExchange().authenticated()
+      .pathMatchers(SECURED).authenticated()
+      .pathMatchers(UNSECURED).permitAll()
       .and()
       .oauth2ResourceServer()
       .jwt();
