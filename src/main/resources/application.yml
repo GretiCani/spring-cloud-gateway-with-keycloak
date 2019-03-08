@@ -1,0 +1,19 @@
+remote:
+  home: http://localhost:8080
+
+server.port: 9000
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/auth/realms/cloud-gateway
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/auth/realms/cloud-gateway
+        registration:
+          keycloak:
+            client-id: spring-security
+            client-secret: 159150bc-5c81-40eb-8ec3-74a9c98b1bd5
